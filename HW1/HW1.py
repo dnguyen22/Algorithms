@@ -29,6 +29,7 @@ def merge_and_count_split_inversions(a_list, b_list):
         else:
             sorted_list.append(b_list[j])
             j += 1
+            count_inversions += len(a_list) - i
 
     while i < len(a_list):
         sorted_list.append(a_list[i])
@@ -40,10 +41,11 @@ def merge_and_count_split_inversions(a_list, b_list):
 
     return sorted_list, count_inversions
 
-intArray = [1, 3, 5, 2, 4, 6]
-# with open('IntegerArray.txt') as f:
-#     for line in f:
-#         intArray.append(int(line))
+intArray = []
+with open('IntegerArray.txt') as f:
+    for line in f:
+        intArray.append(int(line))
 
 print(intArray)
 print(sort_and_count_inversions(intArray, len(intArray))[0])
+print(sort_and_count_inversions(intArray, len(intArray))[1])
