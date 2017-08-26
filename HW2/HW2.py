@@ -39,16 +39,16 @@ def quick_sort(a_list, start, end):
         left_side = quick_sort(a_list, start, pivot_boundary-1)
         right_side = quick_sort(a_list, pivot_boundary, end)
 
-        return 0
+        return (end-start) - 1 + left_side + right_side
 
-intArray = [3, 8, 2, 5, 1, 4, 7, 6]
-#with open(''
-#          'QuickSort.txt') as f:
-#    for line in f:
-#        intArray.append(int(line))
+intArray = []
+with open(''
+          'QuickSort.txt') as f:
+    for line in f:
+        intArray.append(int(line))
 
 # Print out array to make sure reading file worked
 print(intArray)
 print(len(intArray))
-quick_sort(intArray, 0, len(intArray))
+print(quick_sort(intArray, 0, len(intArray)))
 print(intArray)
