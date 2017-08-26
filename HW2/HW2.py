@@ -5,13 +5,20 @@ def choose_pivot(a_list, start, end):
     return start
 
 
+def set_final_element_pivot(a_list, start, end):
+    return end-1
+
+
 def quick_sort(a_list, start, end):
     # Base case
     if start >= end:
         # Return list and number of comparisons
         return 0
     else:
-        pivot = choose_pivot(a_list, start, end)
+        # Set pivot as first element
+        #pivot = choose_pivot(a_list, start, end)
+        # Set pivot as final element
+        pivot = set_final_element_pivot(a_list, start, end)
 
         # Partition list around pivot
         # Move pivot to start of list
