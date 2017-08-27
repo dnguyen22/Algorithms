@@ -17,6 +17,7 @@ def calculate_min_cut(graph):
         # Merge random vertex into vertex_to_merge
         #
         # Remove rand_vertex from vertex_to_merge edges
+        graph[int(vertex_to_merge)].discard(str(rand_vertex))
         # Loop through rand_vertex edges and update edge of each vertex from rand_vertex to vertex_to_merge
         # Remove vertex_to_merge from rand_vertex edges
         rand_edges.discard(vertex_to_merge)
