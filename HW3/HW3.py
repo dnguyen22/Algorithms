@@ -4,10 +4,23 @@ import random
 
 # Returns randomized calculation of min cut graph algorithm
 def calculate_min_cut(graph):
+    # removed_vertices = []
     # Iterate until only two vertices remain
     while len(graph) > 2:
         # Pop random vertex
-        random_vertex = graph.pop(random.choice(list(graph)))
+        rand_vertex = random.choice(list(graph))
+        # Get edges of random vertex
+        rand_edges = graph.pop(rand_vertex)
+        # Randomly pick vertex to merge into from initial vertex edges
+        vertex_to_merge = random.choice(list(rand_edges))
+
+        # Merge random vertex into vertex_to_merge
+        #
+        # Remove rand_vertex from vertex_to_merge edges
+        # Loop through rand_vertex edges and update edge of each vertex from rand_vertex to vertex_to_merge
+        # Remove vertex_to_merge from rand_vertex edges
+        rand_edges.discard(vertex_to_merge)
+        # Add rand_vertex edges to vertex_to_merge edges
     return 0
 
 
