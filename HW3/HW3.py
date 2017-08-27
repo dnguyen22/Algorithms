@@ -1,4 +1,6 @@
 # HW3: Min Cut Graph
+# Todo: Make dictionary values a list, instead of set
+# Todo: When merging edge lists, consider what happens with repeats
 import random
 
 
