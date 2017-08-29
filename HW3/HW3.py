@@ -1,6 +1,5 @@
 # HW3: Min Cut Graph
-# Todo: Make dictionary values a list, instead of set
-# Todo: When merging edge lists, consider what happens with repeats
+# Todo: Remove repeats of rand_vertex when merging
 import random
 
 
@@ -29,7 +28,15 @@ def calculate_min_cut(graph):
             # Add rand_vertex edges to vertex_to_merge edges
             graph[vertex_to_merge].append(edge)
 
-    return 0
+    # Get key vertices of graph
+    vertices = graph.keys()
+    # Count cuts between vertices
+    count_cuts = 0
+    for edge in graph[vertices[0]]:
+        if edge == vertices[1]:
+            count_cuts = count_cuts + 1
+
+    return count_cuts
 
 
 # Set up adjacency list as dictionary with keys as vertices, values as list of edges
