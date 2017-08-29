@@ -1,6 +1,7 @@
 # HW3: Min Cut Graph
 # Todo: Remove repeats of rand_vertex when merging
 import random
+import copy
 
 
 # Returns randomized calculation of min cut graph algorithm
@@ -41,7 +42,6 @@ def calculate_min_cut(graph):
 
     return count_cuts
 
-
 # Set up adjacency list as dictionary with keys as vertices, values as list of edges
 graph = {}
 with open('kargerMinCut.txt') as f:
@@ -50,6 +50,11 @@ with open('kargerMinCut.txt') as f:
         # Converts list of string to list of int for value of each int vertex
         graph[int(split_line[0])] = list(map(int, split_line[1:]))
 
-print(graph)
-print(calculate_min_cut(graph))
+min_cut = 1000
+for x in range(100):
+    copy_graph = copy.deepcopy(graph)
+    current_min_cut = calculate_min_cut(copy_graph)
+    if current_min_cut < min_cut:
+        min_cut = current_min_cut
 
+print("Final min cut:", min_cut)
