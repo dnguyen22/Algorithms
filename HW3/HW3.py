@@ -17,19 +17,22 @@ def calculate_min_cut(graph):
         # Merge random vertex into vertex_to_merge
         #
         # Remove rand_vertex from vertex_to_merge edges
-        graph[vertex_to_merge].remove(rand_vertex)
+        while rand_vertex in graph[vertex_to_merge]:
+            graph[vertex_to_merge].remove(rand_vertex)
         # Remove vertex_to_merge from rand_vertex edges
-        rand_edges.remove(vertex_to_merge)
+        while vertex_to_merge in rand_edges:
+            rand_edges.remove(vertex_to_merge)
 
         for edge in rand_edges:
             # Update edge of each vertex from rand_vertex to vertex_to_merge
-            graph[edge].remove(rand_vertex)
-            graph[edge].append(vertex_to_merge)
-            # Add rand_vertex edges to vertex_to_merge edges
-            graph[vertex_to_merge].append(edge)
+            while rand_vertex in graph[edge]:
+                graph[edge].remove(rand_vertex)
+                graph[edge].append(vertex_to_merge)
+                # Add rand_vertex edges to vertex_to_merge edges
+                graph[vertex_to_merge].append(edge)
 
     # Get key vertices of graph
-    vertices = graph.keys()
+    vertices = list(graph.keys())
     # Count cuts between vertices
     count_cuts = 0
     for edge in graph[vertices[0]]:
@@ -49,3 +52,4 @@ with open('kargerMinCut.txt') as f:
 
 print(graph)
 print(calculate_min_cut(graph))
+
