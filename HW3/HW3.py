@@ -38,7 +38,8 @@ graph = {}
 with open('kargerMinCut.txt') as f:
     for line in f:
         split_line = line.split()
-        graph[int(split_line[0])] = set(split_line[1:])
+        # Converts list of string to list of int for value of each int vertex
+        graph[int(split_line[0])] = list(map(int, split_line[1:]))
 
 print(graph)
 print(calculate_min_cut(graph))
