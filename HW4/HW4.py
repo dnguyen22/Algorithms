@@ -13,5 +13,12 @@ def extract_data(file):
             graph.append(edge)
     return graph
 
+# Generate graph from edges text file
 graph = extract_data('SCC_test.txt')
+# Run SCC algorithm on graph, return sizes of SCC
+size_SCC = []
+# Sort size_SCC from smallest to largest
+size_SCC.sort()
+# Print size of 5 largest SCCs
+print(size_SCC[-5:])
 print(graph)
