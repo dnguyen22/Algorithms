@@ -30,9 +30,9 @@ def extract_data(file, rev=False):
 
             # Add new node to graph; create new key if first time node appears
             if tail in graph:
-                graph[tail].append(head)
+                graph[tail].add(head)
             else:
-                graph[tail] = [head]
+                graph[tail] = set([head])
     return graph
 
 
@@ -46,17 +46,21 @@ def dfs_loop(graph):
     return
 
 # Depth first search from starting node
-def dfs(graph, node):
-    global explored_nodes
+def dfs(graph, node, visited = None):
+    if visited is None:
+        visited = set()
+
     # Mark node as explored
-    explored_nodes.add(node)
+    visited.add(node)
 
     # For every edge in graph from node, run dfs on head node if it is unexplored
-    return
+    for next in graph[node] - visited:
+        dfs(graph, next, visited)
+
+    return visited
 
 
-# Global variable set of explored nodes
-explored_nodes = set()
+
 # Generate graph from edges text file
 graph = extract_data('SCC_test.txt', False)
 # Generate reversed graph from edges text file
