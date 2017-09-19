@@ -41,9 +41,18 @@ def compute_scc_size(graph):
     sizes = []
     return sizes
 
+
 # Runs depth first search loop on entire graph (Kosaraju's Algorithm)
 def dfs_loop(graph):
+    global finishing_time
+    global leader_node
+
+    finishing_time = 0
+
+    # Loop through keys in graph and run dfs
+
     return
+
 
 # Depth first search from starting node
 def dfs(graph, node, visited = None):
@@ -60,6 +69,10 @@ def dfs(graph, node, visited = None):
     return visited
 
 
+# Global finishing time
+finishing_time = 0
+# Global leader node
+leader_node = None
 
 # Generate graph from edges text file
 graph = extract_data('SCC_test.txt', False)
