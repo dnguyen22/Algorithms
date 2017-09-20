@@ -73,6 +73,7 @@ def dfs(graph, node, visited = None):
 finishing_time = 0
 # Global leader node
 leader_node = None
+# Global leader dictionary that sets the leader as the value for each node
 
 # Generate graph from edges text file
 graph = extract_data('SCC_test.txt', False)
