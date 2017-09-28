@@ -15,18 +15,14 @@ def extract_data2(file):
 
 
 # Returns graph from text file of directed edges. Graph is in the form of a dictionary with vertex keys
-def extract_data(file, rev=False):
+def extract_data(file):
     graph = {}
     with open(file) as f:
         for line in f:
             split_line = line.split()
-            # Save edges as int tail and head. If reversed, switch tail and head
-            if not rev:
-                tail = int(split_line[0])
-                head = int(split_line[1])
-            else:
-                head = int(split_line[0])
-                tail = int(split_line[1])
+            # Save edges as int tail and head.
+            tail = int(split_line[0])
+            head = int(split_line[1])
 
             # Add new node to graph; create new key if first time node appears
             if tail in graph:
@@ -76,9 +72,7 @@ leader_node = None
 # Global leader dictionary that sets the leader as the value for each node
 
 # Generate graph from edges text file
-graph = extract_data('SCC_test.txt', False)
-# Generate reversed graph from edges text file
-rev_graph = extract_data('SCC_test.txt', True)
+graph = extract_data('SCC_test.txt')
 # Run SCC algorithm on graph, return sizes of SCC
 size_SCC = []
 size_SCC = compute_scc_size(graph)
