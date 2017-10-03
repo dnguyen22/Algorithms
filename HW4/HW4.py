@@ -34,6 +34,14 @@ class Graph(object):
     def get_graph_size(self):
         return len(self.adjacency_list)
 
+    # Runs depth first search on graph to compute the fill order on Kosaraju's Algorithm
+    def fill_order(self):
+        pass
+
+    # Runs depth first search in fill order to find strongly connected components via Kosaraju's Algorithm
+    def dfs(self):
+        pass
+
 # Runs SCC algorithm on graph and returns sizes of SCCs
 def compute_scc_size(graph):
     sizes = []
@@ -74,13 +82,19 @@ leader_node = None
 # Global leader dictionary that sets the leader as the value for each node
 
 # Generate graph from edges text file
-graph = extract_data('SCC_test.txt')
+graph = Graph()
+graph.extract_data('SCC_test.txt', False)
+
+# Generate reverse graph from edges text file
+reversed_graph = Graph()
+reversed_graph.extract_data('SCC_test.txt', True)
+
 # Run SCC algorithm on graph, return sizes of SCC
-size_SCC = []
-size_SCC = compute_scc_size(graph)
+#size_SCC = []
+#size_SCC = compute_scc_size(graph)
 # Sort size_SCC from smallest to largest
-size_SCC.sort()
+#size_SCC.sort()
 # Print size of 5 largest SCCs
-print(size_SCC[-5:])
-print(graph)
-print(rev_graph)
+#print(size_SCC[-5:])
+print(graph.adjacency_list)
+print(reversed_graph.adjacency_list)
