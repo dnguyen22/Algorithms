@@ -44,40 +44,17 @@ class Graph(object):
         stack = stack.append(vertex)
 
     # Runs depth first search in fill order to find strongly connected components via Kosaraju's Algorithm
-    def dfs(self):
-        pass
+    def dfs(self, vertex, visited, leaders, lead):
+        visited[vertex] = True
+        leaders[vertex] = lead
+        for edge in self.adjacency_list[vertex]:
+            if edge in visited and visited[edge] == False:
+                self.dfs(edge, visited, leaders, lead)
 
 # Runs SCC algorithm on graph and returns sizes of SCCs
 def compute_scc_size(graph):
     sizes = []
     return sizes
-
-
-# Runs depth first search loop on entire graph (Kosaraju's Algorithm)
-def dfs_loop(graph):
-    global finishing_time
-    global leader_node
-
-    finishing_time = 0
-
-    # Loop through keys in graph and run dfs
-
-    return
-
-
-# Depth first search from starting node
-def dfs(graph, node, visited = None):
-    if visited is None:
-        visited = set()
-
-    # Mark node as explored
-    visited.add(node)
-
-    # For every edge in graph from node, run dfs on head node if it is unexplored
-    for next in graph[node] - visited:
-        dfs(graph, next, visited)
-
-    return visited
 
 sys.setrecursionlimit(300000)
 
@@ -111,9 +88,14 @@ for vert in graph.adjacency_list:
 visited_vertex_reverse_graph = dict.fromkeys(set(reversed_graph.adjacency_list.keys()), False)
 
 # Dictionary to keep track of leaders of each vertex
-leaders = dict.fromkeys(set(reversed_graph.adjacency_list.keys()), False)
+leaders = dict.fromkeys(set(reversed_graph.adjacency_list.keys()))
 
-print("Size of graph: " + str(graph.get_graph_size()))
-#print(graph.adjacency_list)
-#print(reversed_graph.adjacency_list)
 print(finishing_order)
+
+while finishing_order:
+    v = finishing_order.pop()
+    if visited_vertex_reverse_graph[v] == False:
+        lead = v
+        reversed_graph.dfs(v, visited_vertex_reverse_graph, leaders, lead)
+
+print(leaders)
