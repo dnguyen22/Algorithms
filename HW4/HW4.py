@@ -96,12 +96,19 @@ reversed_graph.extract_data('SCC_test.txt', True)
 #size_SCC.sort()
 # Print size of 5 largest SCCs
 #print(size_SCC[-5:])
+
+# Stack to record finishing times of graph
 finishing_order = []
+# Dictionary to keep track of visited vertices
 visited_vertex = dict.fromkeys(set(graph.adjacency_list.keys()), False)
 
+# Loop through vertices to calculate finishing times
 for vert in graph.adjacency_list:
     if visited_vertex[vert] == False:
         graph.fill_order(vert, visited_vertex, finishing_order)
+
+# Dictionary to keep track of visisted vertices for reverse graph
+visited_vertex_reverse_graph = dict.fromkeys(set(reversed_graph.adjacency_list.keys()), False)
 
 print("Size of graph: " + str(graph.get_graph_size()))
 #print(graph.adjacency_list)
