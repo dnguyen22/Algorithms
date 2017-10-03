@@ -1,35 +1,33 @@
 # HW4: Strongly Connected Components
 
+class Graph(object):
+    """A directed graph with the following properties:
 
-# Returns graph from text file of directed edges. Graph is in the form of a list of tuples of the start and end vertex
-#   of edges
-def extract_data2(file):
-    graph = []
-    with open(file) as f:
-        for line in f:
-            split_line = line.split()
-            # Save edges as int tuples (tail, head)
-            edge = int(split_line[0]), int(split_line[1])
-            graph.append(edge)
-    return graph
+    Attributes:
+        adjacency_list: A dictionary where the keys are the vertices and the values are the edge endpoint vertices
+    """
 
+    def __init__(self):
+        self.adjacency_list = {}
 
-# Returns graph from text file of directed edges. Graph is in the form of a dictionary with vertex keys
-def extract_data(file):
-    graph = {}
-    with open(file) as f:
-        for line in f:
-            split_line = line.split()
-            # Save edges as int tail and head.
-            tail = int(split_line[0])
-            head = int(split_line[1])
+    # Returns graph from text file of directed edges. Graph is in the form of a dictionary with vertex keys
+    def extract_data(self, file, reverse=False):
+        with open(file) as f:
+            for line in f:
+                split_line = line.split()
+                # Save edges as int tail and head. If reversed, switch tail and head
+                if not reverse:
+                    tail = int(split_line[0])
+                    head = int(split_line[1])
+                else:
+                    head = int(split_line[0])
+                    tail = int(split_line[1])
 
-            # Add new node to graph; create new key if first time node appears
-            if tail in graph:
-                graph[tail].add(head)
-            else:
-                graph[tail] = set([head])
-    return graph
+                # Add new node to graph; create new key if first time node appears
+                if tail in self.adjacency_list:
+                    self.adjacency_list[tail].add(head)
+                else:
+                    self.adjacency_list[tail] = set([head])
 
 
 # Runs SCC algorithm on graph and returns sizes of SCCs
