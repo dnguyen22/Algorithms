@@ -110,6 +110,9 @@ for vert in graph.adjacency_list:
 # Dictionary to keep track of visisted vertices for reverse graph
 visited_vertex_reverse_graph = dict.fromkeys(set(reversed_graph.adjacency_list.keys()), False)
 
+# Dictionary to keep track of leaders of each vertex
+leaders = dict.fromkeys(set(reversed_graph.adjacency_list.keys()), False)
+
 print("Size of graph: " + str(graph.get_graph_size()))
 #print(graph.adjacency_list)
 #print(reversed_graph.adjacency_list)
