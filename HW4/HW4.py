@@ -46,15 +46,13 @@ class Graph(object):
     # Runs depth first search in fill order to find strongly connected components via Kosaraju's Algorithm
     def dfs(self, vertex, visited, leaders, lead):
         visited[vertex] = True
-        leaders[vertex] = lead
+        if lead in leaders:
+            leaders[lead] = leaders[lead] + 1
+        else:
+            leaders[lead] = 1
         for edge in self.adjacency_list[vertex]:
             if edge in visited and visited[edge] == False:
                 self.dfs(edge, visited, leaders, lead)
-
-# Runs SCC algorithm on graph and returns sizes of SCCs
-def compute_scc_size(graph):
-    sizes = []
-    return sizes
 
 sys.setrecursionlimit(300000)
 
@@ -65,14 +63,6 @@ graph.extract_data('SCC_test.txt', False)
 # Generate reverse graph from edges text file
 reversed_graph = Graph()
 reversed_graph.extract_data('SCC_test.txt', True)
-
-# Run SCC algorithm on graph, return sizes of SCC
-#size_SCC = []
-#size_SCC = compute_scc_size(graph)
-# Sort size_SCC from smallest to largest
-#size_SCC.sort()
-# Print size of 5 largest SCCs
-#print(size_SCC[-5:])
 
 # Stack to record finishing times of graph
 finishing_order = []
@@ -87,9 +77,7 @@ for vert in graph.adjacency_list:
 # Dictionary to keep track of visisted vertices for reverse graph
 visited_vertex_reverse_graph = dict.fromkeys(set(reversed_graph.adjacency_list.keys()), False)
 
-# Dictionary to keep track of leaders of each vertex
-leaders = dict.fromkeys(set(reversed_graph.adjacency_list.keys()))
-
+leaders = {}
 print(finishing_order)
 
 while finishing_order:
@@ -98,4 +86,6 @@ while finishing_order:
         lead = v
         reversed_graph.dfs(v, visited_vertex_reverse_graph, leaders, lead)
 
-print(leaders)
+# Top 5 sizes of strongly connected components
+print(list(leaders.values())[-5:])
+
