@@ -1,4 +1,5 @@
 # HW4: Strongly Connected Components
+import sys
 
 class Graph(object):
     """A directed graph with the following properties:
@@ -35,8 +36,12 @@ class Graph(object):
         return len(self.adjacency_list)
 
     # Runs depth first search on graph to compute the fill order on Kosaraju's Algorithm
-    def fill_order(self):
-        pass
+    def fill_order(self, vertex, visited, stack):
+        visited[vertex] = True
+        for edge in self.adjacency_list[vertex]:
+            if edge in visited and visited[edge] == False:
+                self.fill_order(edge, visited, stack)
+        stack = stack.append(vertex)
 
     # Runs depth first search in fill order to find strongly connected components via Kosaraju's Algorithm
     def dfs(self):
@@ -74,12 +79,7 @@ def dfs(graph, node, visited = None):
 
     return visited
 
-
-# Global finishing time
-finishing_time = 0
-# Global leader node
-leader_node = None
-# Global leader dictionary that sets the leader as the value for each node
+sys.setrecursionlimit(300000)
 
 # Generate graph from edges text file
 graph = Graph()
@@ -96,5 +96,14 @@ reversed_graph.extract_data('SCC_test.txt', True)
 #size_SCC.sort()
 # Print size of 5 largest SCCs
 #print(size_SCC[-5:])
-print(graph.adjacency_list)
-print(reversed_graph.adjacency_list)
+finishing_order = []
+visited_vertex = dict.fromkeys(set(graph.adjacency_list.keys()), False)
+
+for vert in graph.adjacency_list:
+    if visited_vertex[vert] == False:
+        graph.fill_order(vert, visited_vertex, finishing_order)
+
+print("Size of graph: " + str(graph.get_graph_size()))
+#print(graph.adjacency_list)
+#print(reversed_graph.adjacency_list)
+print(finishing_order)
