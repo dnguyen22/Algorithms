@@ -29,6 +29,10 @@ class Graph(object):
                 else:
                     self.adjacency_list[tail] = set([head])
 
+    # Returns number of vertices with an edge leaving them. Does not include
+    #   vertices with no edges or vertices with no leaving edges.
+    def get_graph_size(self):
+        return len(self.adjacency_list)
 
 # Runs SCC algorithm on graph and returns sizes of SCCs
 def compute_scc_size(graph):
