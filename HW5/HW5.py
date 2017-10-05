@@ -6,7 +6,7 @@ MAX_PATH_LENGTH = 1000000
 
 
 # Returns graph from text file of weighted edges. Graph is in the form of an adjacency list dictionary with vertices as
-#   keys and (edge weight, end vertex) tuples as values
+#   keys and list of [edge weight, end vertex] as values
 def extract_data(file):
     adjacency_list = {}
     with open(file) as f:
@@ -14,7 +14,7 @@ def extract_data(file):
             split_line = line.split()
             # Set starting vertex as key with empty list as value
             adjacency_list[int(split_line[0])] = []
-            # edges contains tuples of end vertices and edge weights
+            # edges contains list of list of [end vertices and edge weights]
             edges = split_line[1:]
             for edge in edges:
                 split_edge = edge.split(',')
@@ -41,9 +41,12 @@ while len(unexplored) > 0:
     unexplored.remove(vert)
 
     edges = graph[vert]
+    # Add edges from current vertex to heap if vertex is unexplored
     for edge in edges:
         if edge[1] in unexplored:
+            # Add current Dijkstra's greedy path length to length from current vertex to new vertex
             edge[0] = edge[0] + path_length[vert-1]
+            # Add list to heap
             heapq.heappush(heap, edge)
 
     while True:
