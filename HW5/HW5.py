@@ -18,20 +18,20 @@ def extract_data(file):
             edges = split_line[1:]
             for edge in edges:
                 split_edge = edge.split(',')
-                adjacency_list[int(split_line[0])].append((int(split_edge[1]), int(split_edge[0])))
+                adjacency_list[int(split_line[0])].append([int(split_edge[1]), int(split_edge[0])])
     return adjacency_list
 
 
-def dijkstra(vertex, priority_queue, paths, current):
-    edges = graph[vertex]
-    for edge in edges:
-        heapq.heappush(priority_queue, edge)
-
-    # Pop off minimum edge length
-    min_vertex = heapq.heappop(priority_queue)
-    # Update path length with total length up to min_vertex
-    current = current + min_vertex[0]
-    paths[min_vertex[1] - 1] = current
+# def dijkstra(vertex, priority_queue, paths, current):
+#     edges = graph[vertex]
+#     for edge in edges:
+#         heapq.heappush(priority_queue, edge)
+#
+#     # Pop off minimum edge length
+#     min_vertex = heapq.heappop(priority_queue)
+#     # Update path length with total length up to min_vertex
+#     current = current + min_vertex[0]
+#     paths[min_vertex[1] - 1] = current
 
 # Adjacency list graph
 graph = extract_data('dijkstraData.txt')
@@ -46,26 +46,33 @@ print(graph)
 #dijkstra(1, heap, path_length, current_length)
 # Set source vertex
 vert = 1
+path_length[vert-1] = 0
 # Initialize set of unexplored vertices
 unexplored = set(graph.keys())
 # Initialize set of explored vertices
 explored = set()
 
-# Update explored and unexplored sets with new vertex
-explored.add(vert)
-unexplored.remove(vert)
+while len(unexplored) > 0:
+    # Update explored and unexplored sets with new vertex
+    explored.add(vert)
+    unexplored.remove(vert)
 
-#edges = graph[vert]
-#for edge in edges:
-#    heapq.heappush(heap, edge)
+    edges = graph[vert]
+    for edge in edges:
+        edge[0] = edge[0] + path_length[vert-1]
+        heapq.heappush(heap, edge)
 
-# Pop off minimum edge length
-#min_vertex = heapq.heappop(heap)
-# Update path length with total length up to min_vertex
-#current_length = current_length + min_vertex[0]
-#path_length[min_vertex[1]-1] = current_length
-# Set next vertex to be added to explored set
-#vert = min_vertex[1]
+    while True:
+        # Pop off minimum edge length until pop unexplored vertex
+        min_vertex = heapq.heappop(heap)
+        if min_vertex[1] in unexplored or not heap:
+            break
+
+    # Update path length with total length up to min_vertex
+    path_length[min_vertex[1]-1] = min_vertex[0] + path_length[vert-1]
+    # Set next vertex to be added to explored set
+    vert = min_vertex[1]
 
 print(explored)
 print(unexplored)
+print(path_length)
