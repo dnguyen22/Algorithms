@@ -21,29 +21,12 @@ def extract_data(file):
                 adjacency_list[int(split_line[0])].append([int(split_edge[1]), int(split_edge[0])])
     return adjacency_list
 
-
-# def dijkstra(vertex, priority_queue, paths, current):
-#     edges = graph[vertex]
-#     for edge in edges:
-#         heapq.heappush(priority_queue, edge)
-#
-#     # Pop off minimum edge length
-#     min_vertex = heapq.heappop(priority_queue)
-#     # Update path length with total length up to min_vertex
-#     current = current + min_vertex[0]
-#     paths[min_vertex[1] - 1] = current
-
 # Adjacency list graph
 graph = extract_data('dijkstraData.txt')
 # Heap data structure to hold edges
 heap = []
 # List to hold path lengths. Index i-1 holds path length from vertex 1 to vertex i
 path_length = [MAX_PATH_LENGTH] * len(graph)
-# Current path length from source vertex up to current point
-current_length = 0
-
-print(graph)
-#dijkstra(1, heap, path_length, current_length)
 # Set source vertex
 vert = 1
 path_length[vert-1] = 0
