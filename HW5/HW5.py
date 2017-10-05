@@ -21,6 +21,18 @@ def extract_data(file):
                 adjacency_list[int(split_line[0])].append((int(split_edge[1]), int(split_edge[0])))
     return adjacency_list
 
+
+def dijkstra(vertex, priority_queue, paths, current):
+    edges = graph[vertex]
+    for edge in edges:
+        heapq.heappush(priority_queue, edge)
+
+    # Pop off minimum edge length
+    min_vertex = heapq.heappop(priority_queue)
+    # Update path length with total length up to min_vertex
+    current = current + min_vertex[0]
+    paths[min_vertex[1] - 1] = current
+
 # Adjacency list graph
 graph = extract_data('dijkstraData.txt')
 # Heap data structure to hold edges
@@ -31,15 +43,29 @@ path_length = [MAX_PATH_LENGTH] * len(graph)
 current_length = 0
 
 print(graph)
+#dijkstra(1, heap, path_length, current_length)
+# Set source vertex
+vert = 1
+# Initialize set of unexplored vertices
+unexplored = set(graph.keys())
+# Initialize set of explored vertices
+explored = set()
 
-edges = graph[1]
-for edge in edges:
-    heapq.heappush(heap, edge)
+# Update explored and unexplored sets with new vertex
+explored.add(vert)
+unexplored.remove(vert)
+
+#edges = graph[vert]
+#for edge in edges:
+#    heapq.heappush(heap, edge)
 
 # Pop off minimum edge length
-min_vertex = heapq.heappop(heap)
+#min_vertex = heapq.heappop(heap)
 # Update path length with total length up to min_vertex
-path_length[min_vertex[1]-1] = min_vertex[0] + current_length
+#current_length = current_length + min_vertex[0]
+#path_length[min_vertex[1]-1] = current_length
+# Set next vertex to be added to explored set
+#vert = min_vertex[1]
 
-print(path_length)
-print(min_vertex)
+print(explored)
+print(unexplored)
