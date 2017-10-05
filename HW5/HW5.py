@@ -42,8 +42,9 @@ while len(unexplored) > 0:
 
     edges = graph[vert]
     for edge in edges:
-        edge[0] = edge[0] + path_length[vert-1]
-        heapq.heappush(heap, edge)
+        if edge[1] in unexplored:
+            edge[0] = edge[0] + path_length[vert-1]
+            heapq.heappush(heap, edge)
 
     while True:
         # Pop off minimum edge length until pop unexplored vertex
@@ -52,12 +53,12 @@ while len(unexplored) > 0:
             break
 
     # Update path length with total length up to min_vertex
-    path_length[min_vertex[1]-1] = min_vertex[0] + path_length[vert-1]
+    path_length[min_vertex[1]-1] = min_vertex[0]
     # Set next vertex to be added to explored set
     vert = min_vertex[1]
 
 # Vertices of interest
-vertices = [7, 37, 59, 82, 99, 115, 113, 165, 188, 197]
+vertices = [7, 37, 59, 82, 99, 115, 133, 165, 188, 197]
 
 # Print answers
 for vertex in vertices:
