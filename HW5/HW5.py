@@ -73,6 +73,9 @@ while len(unexplored) > 0:
     # Set next vertex to be added to explored set
     vert = min_vertex[1]
 
-print(explored)
-print(unexplored)
-print(path_length)
+# Vertices of interest
+vertices = [7, 37, 59, 82, 99, 115, 113, 165, 188, 197]
+
+# Print answers
+for vertex in vertices:
+    print('Shortest path to ' + str(vertex) + ': ' + str(path_length[vertex-1]))
