@@ -13,3 +13,7 @@ def extract_data(file):
 
 input_ints = extract_data('algo1-programming_prob-2sum.txt')
 print(input_ints)
+
+for t in range(-10000, 10001):
+    for number in input_ints:
+        pass
