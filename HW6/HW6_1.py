@@ -12,8 +12,14 @@ def extract_data(file):
 
 
 input_ints = extract_data('algo1-programming_prob-2sum.txt')
-print(input_ints)
+two_sum_success = []
 
 for t in range(-10000, 10001):
     for number in input_ints:
-        pass
+        complement = t - number
+        if complement in input_ints:
+            two_sum_success.append(t)
+            break
+
+print(two_sum_success)
+print(len(two_sum_success))
