@@ -18,7 +18,18 @@ with open(file) as f:
         if not low_heap and not high_heap:
             heapq.heappush(high_heap, next_value)
         else:
-            # TODO: Add new value to high heap if greater than smallest value. Add to low heap if less than highest value
-            # TODO: Balance heaps
-            # TODO: If index is odd, median is odd value from high heap or low heap. If index is even, median is from low heap
+            # Add new value to high heap if greater than smallest value. Add to low heap if less than highest value
+            if next_value > high_heap[0]:
+                heapq.heappush(high_heap, next_value)
+            else:
+                heapq.heappush(low_heap, next_value)
+
+            # Balance heaps
+            if len(high_heap) - len(low_heap) > 1:
+                heapq.heappush(low_heap, -(heapq.heappop(high_heap)))
+            elif len(low_heap) - len(high_heap) > 1:
+                heapq.heappush(high_heap, -(heapq.heappop(low_heap)))
+
+            # TODO: If index is odd, median is odd value from high heap or low heap.
+            #   If index is even, median is from low heap.
             # TODO: Add median to medians list
