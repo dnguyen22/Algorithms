@@ -1,4 +1,5 @@
 # HW7_1: Job Scheduling - Greedy Algorithms
+from operator import attrgetter
 
 
 # Creates a job class that has a job weight and job length
@@ -6,6 +7,7 @@ class Job:
     def __init__(self, weight, length):
         self.weight = weight
         self.length = length
+        self.priority = self.get_difference()
 
     # Print out weight and length of Job
     def __repr__(self):
@@ -30,5 +32,8 @@ def extract_data(file):
 
 # Get jobs from file
 jobs = extract_data('jobs.txt')
+# Print list of jobs
 print(jobs)
-print(sorted(jobs, reverse=True, key=lambda job: job.get_difference()))
+# Print jobs sorted by highest priority (based on difference), then by weight in case of tie
+sorted_jobs = sorted(jobs, reverse=True, key=attrgetter('priority', 'weight'))
+print(sorted_jobs)
