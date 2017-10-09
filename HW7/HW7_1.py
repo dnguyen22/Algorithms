@@ -7,6 +7,11 @@ class Job:
         self.weight = weight
         self.length = length
 
+    # Print out weight and length of Job
+    def __repr__(self):
+        return repr((self.weight, self.length))
+
+    # Returns weight - length for scheduling purposes
     def get_difference(self):
         return self.weight - self.length
 
@@ -19,7 +24,7 @@ def extract_data(file):
         j = f.readlines()[1:]
         for line in j:
             split = line.split()
-            jobs.append((int(split[0]), int(split[1])))
+            jobs.append(Job(int(split[0]), int(split[1])))
     return jobs
 
 
