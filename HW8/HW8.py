@@ -33,3 +33,21 @@ class UnionFind:
     def add(self, vertex):
         self.parents[vertex] = vertex
         self.ranks[vertex] = 0
+
+
+# Loops through file and adds vertices to UnionFind
+def extract_data(file):
+    uf = UnionFind()
+    with open(file) as f:
+        # Skip first line (header)
+        j = f.readlines()[1:]
+        for line in j:
+            split = line.split()
+            uf.add(int(split[0]))
+            uf.add(int(split[1]))
+    return uf
+
+
+unionfind = extract_data('clustering1.txt')
+print(unionfind.parents)
+print(unionfind.ranks)
