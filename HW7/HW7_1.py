@@ -31,3 +31,4 @@ def extract_data(file):
 # Get jobs from file
 jobs = extract_data('jobs.txt')
 print(jobs)
+print(sorted(jobs, reverse=True, key=lambda job: job.get_difference()))
