@@ -37,3 +37,12 @@ print(jobs)
 # Print jobs sorted by highest priority (based on difference), then by weight in case of tie
 sorted_jobs = sorted(jobs, reverse=True, key=attrgetter('priority', 'weight'))
 print(sorted_jobs)
+# Initialize variables for computing sum weighted completion time
+completion_time = 0
+sum_weighted_completion = 0
+# Loop through jobs to calculate sum weighted completion time
+for job in jobs:
+    completion_time = completion_time + job.length
+    sum_weighted_completion = sum_weighted_completion + job.weight * completion_time
+
+print(sum_weighted_completion)
