@@ -5,6 +5,7 @@ class UnionFind:
     def __init__(self):
         self.parents = dict()
         self.ranks = dict()
+        self.count_clusters = 0
 
     # Returns parent of vertex
     def find(self, vertex):
@@ -29,15 +30,21 @@ class UnionFind:
             if self.ranks[root1] == self.ranks[root2]:
                 self.ranks[root2] = self.ranks[root2] + 1
 
+            # Decrement number of clusters
+            self.count_clusters = self.count_clusters - 1
+
     # Add vertex to data structure
     def add(self, vertex):
-        self.parents[vertex] = vertex
-        self.ranks[vertex] = 0
+        if vertex not in self.parents:
+            self.parents[vertex] = vertex
+            self.ranks[vertex] = 0
+            self.count_clusters = self.count_clusters + 1
 
 
 # Loops through file and adds vertices to UnionFind
 def extract_data(file):
     uf = UnionFind()
+    edges = []
     with open(file) as f:
         # Skip first line (header)
         j = f.readlines()[1:]
@@ -45,9 +52,27 @@ def extract_data(file):
             split = line.split()
             uf.add(int(split[0]))
             uf.add(int(split[1]))
-    return uf
+            edges.append((int(split[0]), int(split[1]), int(split[2])))
+    return uf, edges
 
 
-unionfind = extract_data('clustering1.txt')
-print(unionfind.parents)
-print(unionfind.ranks)
+union_find, graph = extract_data('clustering1.txt')
+# Set k, number of clusters
+K = 4
+# Sort edges by distance from shortest to longest
+sorted_graph = sorted(graph, key=lambda distance: distance[2])
+
+while union_find.count_clusters > K:
+    smallest_edge = sorted_graph.pop(0)
+    # Union two vertices (method already accounts for if edge is within cluster)
+    union_find.union(smallest_edge[0], smallest_edge[1])
+
+print(union_find.parents)
+print(union_find.count_clusters)
+
+for key in union_find.parents:
+    if union_find.find(key) != 112:
+        print('Key: ', key)
+        print('Root: ', union_find.find(key))
+        print()
+
