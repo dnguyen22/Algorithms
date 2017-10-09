@@ -1,6 +1,16 @@
 # HW7_1: Job Scheduling - Greedy Algorithms
 
 
+# Creates a job class that has a job weight and job length
+class Job:
+    def __init__(self, weight, length):
+        self.weight = weight
+        self.length = length
+
+    def get_difference(self):
+        return self.weight - self.length
+
+
 # Returns list from text file of integer tuples (job weight, job length).
 def extract_data(file):
     jobs = []
