@@ -7,7 +7,7 @@ class Job:
     def __init__(self, weight, length):
         self.weight = weight
         self.length = length
-        self.priority = self.get_difference()
+        self.priority = self.get_ratio()
 
     # Print out weight and length of Job
     def __repr__(self):
@@ -16,6 +16,10 @@ class Job:
     # Returns weight - length for scheduling purposes
     def get_difference(self):
         return self.weight - self.length
+
+    # Returns weight / length for scheduling purposes
+    def get_ratio(self):
+        return self.weight / self.length
 
 
 # Returns list from text file of integer tuples (job weight, job length).
