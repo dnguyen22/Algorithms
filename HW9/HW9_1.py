@@ -42,21 +42,19 @@ tree = heapq.heappop(heap)
 print(tree)
 
 
-# Breath first search to get min depth of tree
+# Depth first search to get min depth of tree
 def get_min_depth(root):
-    if isinstance(root.l, int) or isinstance(root.r, int):
-        return 1
-    left_child = get_min_depth(root.l) + 1
-    right_child = get_min_depth(root.r) + 1
+    if isinstance(root, int):
+        return 0
+    return min(get_min_depth(root.l), get_min_depth(root.r)) +1
 
-    if right_child > left_child:
-        return right_child
-    else:
-        return left_child
+
+# Depth first search to get max depth of tree
+def get_max_depth(root):
+    if isinstance(root, int):
+        return 0
+    return max(get_max_depth(root.l), get_max_depth(root.r)) + 1
 
 
 print(get_min_depth(tree[1]))
-testnode = HuffmanNode(5, 9) # Depth of 1
-testnode2 = HuffmanNode(2, testnode) # Depth of 2
-testnode3 = HuffmanNode(testnode2, testnode) # Depth of 3
-print(get_min_depth(testnode3))
+print(get_max_depth(tree[1]))
