@@ -22,7 +22,7 @@ def extract_data(file):
 
 
 # Items
-items, MAX_WEIGHT, NUM_ITEMS = extract_data('knaptest.txt')
+items, MAX_WEIGHT, NUM_ITEMS = extract_data('knapsack1.txt')
 
 # Set up dictionary for subproblem solutions with key 'XY'
 #   where X is the item index and Y is the weight capacity of the bag. Value is value of items
@@ -45,5 +45,17 @@ for i in range(1, NUM_ITEMS + 1):
         bag[str(i) + ' ' + str(j)] = max(bag[str(i-1) + ' ' + str(j)], add_item_case)
 
 # Set of vertices used in final answer set
-#items_in_bag_set = set()
+items_in_bag_set = set()
+item_index = NUM_ITEMS
+weight_index = MAX_WEIGHT
+while item_index > 0:
+    if bag[str(item_index) + ' ' + str(weight_index)] != bag[str(item_index-1) + ' ' + str(weight_index)]:
+        # Current item is in optimal bag
+        items_in_bag_set.add(item_index)
+        weight_index = weight_index - items[item_index][1]
+    # Move to next item
+    item_index = item_index - 1
+
 print('Optimal Value: ' + str(bag[str(NUM_ITEMS) + ' ' + str(MAX_WEIGHT)]))
+print('Items in optimal bag: ')
+print(items_in_bag_set)
