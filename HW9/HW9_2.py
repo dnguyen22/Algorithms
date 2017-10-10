@@ -22,6 +22,7 @@ for i in range(2, len(vertices)+1):
 # Set of vertices used in final answer set
 independent_set = set()
 index = len(vertices)
+# Loop through weight list to find which vertices are in set
 while index > 1:
     if set_weight[index] >= set_weight[index-1] + vertices[index-1]:
         index = index - 1
@@ -33,3 +34,10 @@ print(len(set_weight))
 print(vertices)
 print(set_weight)
 print(independent_set)
+# Check if the following vertices are in set
+check_set = [1, 2, 3, 4, 17, 517, 997]
+for vertex in check_set:
+    if vertex in independent_set:
+        print('Vertex ' + str(vertex) + ': 1')
+    else:
+        print('Vertex ' + str(vertex) + ': 0')
