@@ -43,5 +43,7 @@ for i in range(1, NUM_ITEMS + 1):
             # If item weight fits into bag, add item to bag. Add to optimal case for left over weight capacity
             add_item_case = bag[str(i-1) + ' ' + str(j-item_weight)] + items[i][0]
         bag[str(i) + ' ' + str(j)] = max(bag[str(i-1) + ' ' + str(j)], add_item_case)
-print(items)
-print(bag)
+
+# Set of vertices used in final answer set
+#items_in_bag_set = set()
+print('Optimal Value: ' + str(bag[str(NUM_ITEMS) + ' ' + str(MAX_WEIGHT)]))
