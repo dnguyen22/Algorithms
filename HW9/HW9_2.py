@@ -19,5 +19,17 @@ set_weight = [0, vertices[0]]
 for i in range(2, len(vertices)+1):
     set_weight.append(max(set_weight[i-1], set_weight[i-2] + vertices[i-1]))
 
+# Set of vertices used in final answer set
+independent_set = set()
+index = len(vertices)
+while index > 1:
+    if set_weight[index] >= set_weight[index-1] + vertices[index-1]:
+        index = index - 1
+    else:
+        independent_set.add(index)
+        index = index - 2
+print(len(vertices))
+print(len(set_weight))
 print(vertices)
 print(set_weight)
+print(independent_set)
