@@ -6,13 +6,13 @@ def extract_data(file):
     dictionary = dict()
     index = 0
     with open(file) as f:
-        header = f.readlines()[0]
-        split = header.split()
+        text = f.readlines()
+        # Extract data from header
+        split = text[0].split()
         max_weight = int(split[0])
         count_items = int(split[1])
         # Skip first line (header)
-        j = f.readlines()[1:]
-        for line in j:
+        for line in text[1:]:
             split = line.split()
             # dictionary values are tuples of item (value, weight)
             dictionary[index] = (int(split[0]), int(split[1]))
@@ -28,6 +28,8 @@ items, MAX_WEIGHT, NUM_ITEMS = extract_data('knapsack1.txt')
 bag = {}
 for i in range(MAX_WEIGHT):
     bag['0 ' + str(i)] = 0
-    
+
+for i in range(1, NUM_ITEMS):
+    print(i)
 print(items)
 print(bag)
