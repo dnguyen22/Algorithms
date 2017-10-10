@@ -30,13 +30,17 @@ bag = {}
 # Initialize bag for item 0
 for i in range(MAX_WEIGHT + 1):
     bag['0 ' + str(i)] = 0
-# Loop through subproblems
+# Loop through subproblems (all items and all weights)
 for i in range(1, NUM_ITEMS + 1):
+    # Access weight of item for later use
     item_weight = items[i][1]
     for j in range(0, MAX_WEIGHT + 1):
+        # For the case of adding current item to bag, calculate value
         if item_weight > j:
+            # If item weight is heavier than bag weight allowance, do not add item
             add_item_case = 0
         else:
+            # If item weight fits into bag, add item to bag. Add to optimal case for left over weight capacity
             add_item_case = bag[str(i-1) + ' ' + str(j-item_weight)] + items[i][0]
         bag[str(i) + ' ' + str(j)] = max(bag[str(i-1) + ' ' + str(j)], add_item_case)
 print(items)
