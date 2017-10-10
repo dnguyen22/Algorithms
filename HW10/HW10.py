@@ -4,7 +4,7 @@
 # Loops through file and adds items to dictionary for fast lookups
 def extract_data(file):
     dictionary = dict()
-    index = 0
+    index = 1
     with open(file) as f:
         text = f.readlines()
         # Extract data from header
@@ -22,14 +22,22 @@ def extract_data(file):
 
 
 # Items
-items, MAX_WEIGHT, NUM_ITEMS = extract_data('knapsack1.txt')
-# Set up dictionary for subproblem solutions with key 'XY'
-#   where X is the item index and Y is the weight capacity of the bag
-bag = {}
-for i in range(MAX_WEIGHT):
-    bag['0 ' + str(i)] = 0
+items, MAX_WEIGHT, NUM_ITEMS = extract_data('knaptest.txt')
 
-for i in range(1, NUM_ITEMS):
-    print(i)
+# Set up dictionary for subproblem solutions with key 'XY'
+#   where X is the item index and Y is the weight capacity of the bag. Value is value of items
+bag = {}
+# Initialize bag for item 0
+for i in range(MAX_WEIGHT + 1):
+    bag['0 ' + str(i)] = 0
+# Loop through subproblems
+for i in range(1, NUM_ITEMS + 1):
+    item_weight = items[i][1]
+    for j in range(0, MAX_WEIGHT + 1):
+        if item_weight > j:
+            add_item_case = 0
+        else:
+            add_item_case = bag[str(i-1) + ' ' + str(j-item_weight)] + items[i][0]
+        bag[str(i) + ' ' + str(j)] = max(bag[str(i-1) + ' ' + str(j)], add_item_case)
 print(items)
 print(bag)
