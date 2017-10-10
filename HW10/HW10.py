@@ -6,6 +6,10 @@ def extract_data(file):
     dictionary = dict()
     index = 0
     with open(file) as f:
+        header = f.readlines()[0]
+        split = header.split()
+        max_weight = int(split[0])
+        count_items = int(split[1])
         # Skip first line (header)
         j = f.readlines()[1:]
         for line in j:
@@ -14,9 +18,16 @@ def extract_data(file):
             dictionary[index] = (int(split[0]), int(split[1]))
             # Increment item index
             index = index + 1
-    return dictionary
+    return dictionary, max_weight, count_items
 
 
 # Items
-items = extract_data('knapsack1.txt')
+items, MAX_WEIGHT, NUM_ITEMS = extract_data('knapsack1.txt')
+# Set up dictionary for subproblem solutions with key 'XY'
+#   where X is the item index and Y is the weight capacity of the bag
+bag = {}
+for i in range(MAX_WEIGHT):
+    bag['0 ' + str(i)] = 0
+    
 print(items)
+print(bag)
