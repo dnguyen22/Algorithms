@@ -5,6 +5,7 @@
 #   or O(n*mlog(n)) for Dijkstra's algorithm on n vertices. Dijkstra's algorithm is faster, but only works on graphs
 #   with non-negative edges.
 #   Johnson's algorithm runs in O(mnlog(n)) for general graphs (including with negative edges).
+import math
 
 
 # Loops through file and adds edges as a dictionary to vertex tail dictionary for fast lookups
@@ -27,5 +28,20 @@ def extract_data(file):
     return dictionary, num_vertices, num_edges
 
 
+# graph holds edge costs in graph, NUM_VERTICES is the total number of vertices in graph,
+#   and NUM_EDGES is the total number of edges in graph
 graph, NUM_VERTICES, NUM_EDGES = extract_data('g1.txt')
-print(graph[2][36])
+# Set up path length dictionary
+path_lengths = dict()
+# Initialize path_lengths dictionary for k = 0
+for i in range(1, NUM_VERTICES + 1):
+    path_lengths[i] = {}
+    for j in range(1, NUM_VERTICES + 1):
+        path_lengths[i][j] = {}
+        if i == j:
+            path_lengths[i][j][0] = 0
+        elif j in graph[i]:
+            path_lengths[i][j][0] = graph[i][j]
+        else:
+            path_lengths[i][j][0] = math.inf
+
