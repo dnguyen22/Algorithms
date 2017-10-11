@@ -33,6 +33,10 @@ def extract_data(file):
 graph, NUM_VERTICES, NUM_EDGES = extract_data('g1.txt')
 # Set up path length dictionary
 path_lengths = dict()
+# Initialize boolean for negative cycles
+has_negative_cycles = False
+# Initialize shortest path length
+shortest_path = math.inf
 # Initialize path_lengths dictionary for k = 0
 for i in range(1, NUM_VERTICES + 1):
     path_lengths[i] = {}
@@ -49,3 +53,16 @@ for k in range(1, NUM_VERTICES + 1):
     for i in range(1, NUM_VERTICES + 1):
         for j in range(1, NUM_VERTICES + 1):
             path_lengths[i][j][k] = min(path_lengths[i][j][k-1], path_lengths[i][k][k-1] + path_lengths[k][j][k-1])
+
+            if k == NUM_VERTICES:
+                # Check if graph has negative cycles
+                if i == j and path_lengths[i][j][k] < 0:
+                    has_negative_cycles = True
+                if path_lengths[i][j][k] < shortest_path:
+                    # Update shortest path
+                    shortest_path = path_lengths[i][j][k]
+
+if has_negative_cycles:
+    print('Graph has negative cycles')
+else:
+    print('Shortest path: ' + str(shortest_path))
