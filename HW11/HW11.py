@@ -44,4 +44,8 @@ for i in range(1, NUM_VERTICES + 1):
             path_lengths[i][j][0] = graph[i][j]
         else:
             path_lengths[i][j][0] = math.inf
-
+# Flyod-Warshall Algorithm
+for k in range(1, NUM_VERTICES + 1):
+    for i in range(1, NUM_VERTICES + 1):
+        for j in range(1, NUM_VERTICES + 1):
+            path_lengths[i][j][k] = min(path_lengths[i][j][k-1], path_lengths[i][k][k-1] + path_lengths[k][j][k-1])
