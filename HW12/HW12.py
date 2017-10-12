@@ -25,4 +25,9 @@ def distance_squared(city1, city2):
 cities, NUM_CITIES = extract_data('nn.txt')
 # List of cities visited
 tour_path = []
-print(distance_squared(cities[1], cities[2]))
+# Set of cities unexplored
+unexplored = set(cities.keys())
+# Set of cities explored
+explored = set()
+print(unexplored)
+print(explored)
