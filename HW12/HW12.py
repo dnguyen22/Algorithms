@@ -59,3 +59,15 @@ print(explored)
 print(unexplored)
 print(tour_path)
 
+# Compute tour cost
+tour_cost = 0
+tour_path.remove(1)
+current_city = 1
+
+for city in tour_path:
+    tour_cost = tour_cost + math.sqrt(distance_squared(cities[current_city], cities[city]))
+    current_city = city
+
+# Add cost of returning to home city
+tour_cost = tour_cost + math.sqrt(distance_squared(cities[current_city], cities[1]))
+print('Total tour cost: ' + str(int(tour_cost)))
