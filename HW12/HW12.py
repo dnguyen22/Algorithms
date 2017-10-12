@@ -1,4 +1,5 @@
 # HW12: Traveling Salesman Problem - Nearest Neighbor Heuristic
+import math
 
 
 # Loops through file and adds locations to dictionary
@@ -29,5 +30,32 @@ tour_path = []
 unexplored = set(cities.keys())
 # Set of cities explored
 explored = set()
-print(unexplored)
+# Current city - start tour at city 1
+current_city = 1
+unexplored.remove(current_city)
+explored.add(current_city)
+tour_path.append(current_city)
+# Loop through cities until all cities are added to tour
+while unexplored:
+    # Find minimum distance
+    min_distance = math.inf
+    closest_city = math.inf
+    # Loop through unexplored cities to find next closest city
+    for city in unexplored:
+        new_distance = distance_squared(cities[current_city], cities[city])
+
+        if new_distance < min_distance:
+            min_distance = new_distance
+            # In case of tie in distance, save city with lowest index
+            closest_city = city
+
+    # Travel to closest city. Update unexplored and explored sets, and current city
+    unexplored.remove(closest_city)
+    explored.add(closest_city)
+    tour_path.append(closest_city)
+    current_city = closest_city
+
 print(explored)
+print(unexplored)
+print(tour_path)
+
