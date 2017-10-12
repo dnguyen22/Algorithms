@@ -16,6 +16,13 @@ def extract_data(file):
     return dictionary, num_cities
 
 
+# Computes squared Euclidean distance between two cities
+def distance_squared(city1, city2):
+    return (city1[0] - city2[0]) ** 2 + (city1[1] - city2[1]) ** 2
+
+
 # Cities
 cities, NUM_CITIES = extract_data('nn.txt')
-print(cities)
+# List of cities visited
+tour_path = []
+print(distance_squared(cities[1], cities[2]))
