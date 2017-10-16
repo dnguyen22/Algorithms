@@ -1,4 +1,4 @@
-# HW5: Dijkstra's Algorithm
+# HW5: Dijkstra's Algorithm O(m*log(n))
 import heapq
 
 # Max path length
