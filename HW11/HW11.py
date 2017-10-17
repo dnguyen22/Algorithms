@@ -5,6 +5,7 @@
 #   or O(n*mlog(n)) for Dijkstra's algorithm on n vertices. Dijkstra's algorithm is faster, but only works on graphs
 #   with non-negative edges.
 #   Johnson's algorithm runs in O(mnlog(n)) for general graphs (including with negative edges).
+#   Bellman-Ford can account for negative edges.
 import math
 
 
